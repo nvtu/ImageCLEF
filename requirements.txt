@@ -1,0 +1,5 @@
+numpy==1.13.0
+pandas==0.23.4
+tables==3.3.0
+Pillow==5.4.1
+
