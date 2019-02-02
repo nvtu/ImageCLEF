@@ -25,7 +25,7 @@ def parse_minute_based_lifelog(df):
         song, activity, steps, calories, historic_glucose, scan_glucose,\
         heart_rate, distance, *r = v
         wear_imgs_id = r[:20]
-        cam_imgs_id = r[21:]
+        cam_imgs_id = r[20:]
 
         time = Time(utc_time, local_time, time_zone)
         geolocation = Geolocation(lat, lng, name)
