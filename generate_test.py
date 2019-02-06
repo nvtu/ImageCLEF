@@ -30,6 +30,17 @@ def get_image_concepts(lifelog_df, visual_concept_df):
     return df_concepts
 
 
+#def gen_minute_based_images(person_id, date):
+#    test_path = Path.cwd().parent / 'data' / person_id / 'test' / date
+#    autographer_path = test_path / 'Autographer'
+#    personal_cam_path = test_path / '{}_photos'.format(person_id)
+#    minute_based_lifelog = load_csv_file(str(test_path), 'minute_based_table.csv')
+#    visual_concept_df = load_csv_file(str(test_path), 'u1_2018_05_03_categories_attr_concepts.csv'.format(person_id, date))
+#    for v in visual_concept_df.values:
+#        image_id = v[0]
+
+
+
 def gen_random_test(person_id, date):
 
     # Load minute based lifelog data, visual concepts and filter data
@@ -74,13 +85,14 @@ def gen_random_test(person_id, date):
     vc_df.insert(0, 'image_id', hash_min_ids)
 
     # Encrypt minute based lifelog image_id
+    # Get image path 
     for v in image_map_df.values:
         hash_id, image_id, _ = v
         minute_shuffle_df.replace(image_id, hash_id, inplace=True)
 
     # Generate test images and clear information
     dest_cam = test_path / '{}_photos'.format(person_id)
-    dest_autograph = test_path / 'Autographs'
+    dest_autograph = test_path / 'Autographer'
     create_folder(str(dest_cam), exist_ok=False)
     create_folder(str(dest_autograph), exist_ok=False)
     for v in image_map_df.values:
@@ -101,7 +113,7 @@ def gen_random_test(person_id, date):
     minutes_map_df.to_csv(str(ground_truth_path / '{}_{}_minute_map_table.csv'.format(person_id, date)))
     lifelog_date_df.to_csv(str(ground_truth_path / '{}_{}_minute_based_table.csv'.format(person_id, date)), index=False, na_rep='NULL')
 
-    vc_df.to_csv(str(test_path / '{}_{}_categories_attr_concepts'.format(person_id, date)), index=False, na_rep='NULL')
+    vc_df.to_csv(str(test_path / '{}_{}_categories_attr_concepts.csv'.format(person_id, date)), index=False, na_rep='NULL')
     image_map_df.to_csv(str(ground_truth_path / '{}_{}_image_map_table.csv'.format(person_id, date)), index=False)
 
 
